@@ -14,7 +14,7 @@ import {
 	ResponsiveContainer,
 	Cell,
 } from "recharts";
-import { Users, Clock, ThumbsUp, Award } from "lucide-react";
+import { Users, Clock, ThumbsUp, Award, Phone, Car } from "lucide-react";
 
 // Sample data - replace with actual data in a real implementation
 const dailyServiceData = [
@@ -70,9 +70,9 @@ interface KPIProps {
 	title: string;
 	timeframe: string;
 	value: string;
-	target: string;
-	trend: string;
-	trendUp: boolean;
+	target?: string;
+	trend?: string;
+	trendUp?: boolean;
 	icon: ReactNode;
 }
 
@@ -105,6 +105,42 @@ export default function FieldServiceDashboard() {
 
 			{/* KPI Summary Cards */}
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6'>
+				<KpiCard
+					timeframe={timeframe}
+					title='Fault Calls'
+					value='20%'
+					target='10%'
+					icon={<Phone className='text-blue-500' />}
+					trend='+5%'
+					trendUp={true}
+				/>
+				<KpiCard
+					timeframe={timeframe}
+					title='Mean Time to Complete'
+					value='15hrs'
+					target='10hrs'
+					icon={<Clock className='text-blue-500' />}
+					trend='-5%'
+					trendUp={false}
+				/>
+				<KpiCard
+					timeframe={timeframe}
+					title='Mean Time to Repair'
+					value='16hrs'
+					target='20hrs'
+					icon={<Clock className='text-blue-500' />}
+					trend='+20%'
+					trendUp={true}
+				/>
+				<KpiCard
+					timeframe={timeframe}
+					title='Average Distance Travelled by Technician per work order'
+					value='30Km'
+					// target='10%'
+					icon={<Car className='text-blue-500' />}
+					// trend='+5%'
+					trendUp={true}
+				/>
 				<KpiCard
 					timeframe={timeframe}
 					title='SLA Adherence'
@@ -312,17 +348,21 @@ function KpiCard({
 				<div>
 					<p className='text-gray-500 text-sm'>{title}</p>
 					<p className='text-2xl font-bold mt-1'>{value}</p>
-					<p className='text-gray-500 text-xs mt-1'>Target: {target}</p>
+					{target ? (
+						<p className='text-gray-500 text-xs mt-1'>Target: {target}</p>
+					) : null}{" "}
 				</div>
 				<div className='p-2 rounded-full bg-gray-100'>{icon}</div>
 			</div>
-			<div
-				className={`mt-2 text-sm flex items-center ${
-					trendUp ? "text-green-500" : "text-red-500"
-				}`}
-			>
-				{trendUp ? "↑" : "↓"} {trend} vs previous {timeframe}
-			</div>
+			{trend ? (
+				<div
+					className={`mt-2 text-sm flex items-center ${
+						trendUp ? "text-green-500" : "text-red-500"
+					}`}
+				>
+					{trendUp ? "↑" : "↓"} {trend} vs previous {timeframe}
+				</div>
+			) : null}
 		</div>
 	);
 }
