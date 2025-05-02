@@ -122,11 +122,11 @@ export default function FieldServiceDashboard() {
 				<KpiCard
 					timeframe={timeframe}
 					title='Fault Calls'
-					value='20%'
-					target='10%'
+					value='200'
+					target='90'
 					icon={<Phone className='text-cyan-500' />}
-					trend='+5%'
-					trendUp={true}
+					trend='-5%'
+					trendUp={false}
 				/>
 				<KpiCard
 					timeframe={timeframe}
