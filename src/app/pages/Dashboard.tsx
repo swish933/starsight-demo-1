@@ -34,6 +34,13 @@ const workOrdersPerTech = [
 	{ name: "Lisa", orders: 6.5 },
 	{ name: "David", orders: 6.0 },
 ];
+const fieldVisitsPerTech = [
+	{ name: "John", orders: 6.2 },
+	{ name: "Sarah", orders: 7.1 },
+	{ name: "Mike", orders: 5.8 },
+	{ name: "Lisa", orders: 6.5 },
+	{ name: "David", orders: 6.0 },
+];
 
 const firstVisitResolution = [
 	{ name: "Resolved", value: 78 },
@@ -162,6 +169,15 @@ export default function FieldServiceDashboard() {
 				<KpiCard
 					timeframe={timeframe}
 					title='Avg. Work Orders/Tech/Day'
+					value='6.3'
+					target='6.5'
+					icon={<Users className='text-purple-500' />}
+					trend='+0.2'
+					trendUp={true}
+				/>
+				<KpiCard
+					timeframe={timeframe}
+					title='Avg. Field Visits/Tech/Day'
 					value='6.3'
 					target='6.5'
 					icon={<Users className='text-purple-500' />}
@@ -324,6 +340,25 @@ export default function FieldServiceDashboard() {
 									name='Employee Score'
 								/>
 							</LineChart>
+						</ResponsiveContainer>
+					</div>
+				</div>
+			</div>
+
+			<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 my-6'>
+				<div className='bg-white p-4 rounded-lg shadow'>
+					<h2 className='text-xl font-semibold mb-4'>
+						Field Visits Per Technician
+					</h2>
+					<div className='h-64'>
+						<ResponsiveContainer width='100%' height='100%'>
+							<BarChart data={fieldVisitsPerTech}>
+								<CartesianGrid strokeDasharray='3 3' />
+								<XAxis dataKey='name' />
+								<YAxis domain={[0, 10]} />
+								<Tooltip />
+								<Bar dataKey='orders' fill='#8884d8' name='Avg. Orders/Day' />
+							</BarChart>
 						</ResponsiveContainer>
 					</div>
 				</div>
