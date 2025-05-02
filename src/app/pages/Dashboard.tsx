@@ -14,7 +14,7 @@ import {
 	ResponsiveContainer,
 	Cell,
 } from "recharts";
-import { Users, Clock, ThumbsUp, Award, Phone, Car } from "lucide-react";
+import { Users, Clock, ThumbsUp, Award, Phone, Car, Fuel } from "lucide-react";
 
 // Sample data - replace with actual data in a real implementation
 const dailyServiceData = [
@@ -72,6 +72,13 @@ const idleTimeData = [
 	{ name: "Thu", hours: 0.8 },
 	{ name: "Fri", hours: 1.3 },
 ];
+const dieselData = [
+	{ name: "Mon", litres: 500 },
+	{ name: "Tue", litres: 700 },
+	{ name: "Wed", litres: 800 },
+	{ name: "Thu", litres: 1000 },
+	{ name: "Fri", litres: 1500 },
+];
 
 interface KPIProps {
 	title: string;
@@ -117,7 +124,7 @@ export default function FieldServiceDashboard() {
 					title='Fault Calls'
 					value='20%'
 					target='10%'
-					icon={<Phone className='text-blue-500' />}
+					icon={<Phone className='text-cyan-500' />}
 					trend='+5%'
 					trendUp={true}
 				/>
@@ -144,7 +151,7 @@ export default function FieldServiceDashboard() {
 					title='Average Distance Travelled by Technician per work order'
 					value='30Km'
 					// target='10%'
-					icon={<Car className='text-blue-500' />}
+					icon={<Car className='text-rose-500' />}
 					// trend='+5%'
 					trendUp={true}
 				/>
@@ -182,6 +189,15 @@ export default function FieldServiceDashboard() {
 					target='6.5'
 					icon={<Users className='text-purple-500' />}
 					trend='+0.2'
+					trendUp={true}
+				/>
+				<KpiCard
+					timeframe={timeframe}
+					title='Diesel Consumption/Day'
+					value='5000ltrs'
+					// target='6.5'
+					icon={<Fuel className='text-red-500' />}
+					// trend='+0.2'
 					trendUp={true}
 				/>
 				<KpiCard
@@ -359,6 +375,25 @@ export default function FieldServiceDashboard() {
 								<Tooltip />
 								<Bar dataKey='orders' fill='#8884d8' name='Avg. Orders/Day' />
 							</BarChart>
+						</ResponsiveContainer>
+					</div>
+				</div>
+				<div className='bg-white p-4 rounded-lg shadow'>
+					<h2 className='text-xl font-semibold mb-4'>Diesel Consumption</h2>
+					<div className='h-64'>
+						<ResponsiveContainer width='100%' height='100%'>
+							<LineChart data={dieselData}>
+								<CartesianGrid strokeDasharray='3 3' />
+								<XAxis dataKey='name' />
+								<YAxis />
+								<Tooltip />
+								<Line
+									type='monotone'
+									dataKey='litres'
+									stroke='#ff7300'
+									name='Litres'
+								/>
+							</LineChart>
 						</ResponsiveContainer>
 					</div>
 				</div>
